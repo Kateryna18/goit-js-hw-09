@@ -6,10 +6,10 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 const COUNT_DELAY = 1000;
 
-const valueDays = document.querySelector('.value [data-days]');
-const valueHours = document.querySelector('.value [data-hours]');
-const valueMinutes = document.querySelector('.value [data-minutes]');
-const valueSeconds = document.querySelector('.value [data-seconds]');
+const valueDays = document.querySelector('.value[data-days]');
+const valueHours = document.querySelector('.value[data-hours]');
+const valueMinutes = document.querySelector('.value[data-minutes]');
+const valueSeconds = document.querySelector('.value[data-seconds]');
 
 const startBtn = document.querySelector('button[data-start]');
 startBtn.setAttribute('disabled', '');
@@ -25,47 +25,38 @@ const options = {
   onClose(selectedDates) {
     const currentDate = Date.now();
     let chooseDate = selectedDates[0].getTime();
-  
+
     if (chooseDate < currentDate) {
       alert('Please choose a date in the future');
-    } else {
-      startBtn.removeAttribute('disabled');
+    }
+
+    startBtn.removeAttribute('disabled');
+    startBtn.addEventListener('click', () => {
       setInterval(() => {
         const currentDate = Date.now();
         const differenceTime = chooseDate - currentDate;
         const timeToSelectedDate = convertMs(differenceTime);
-        console.log(timeToSelectedDate);
+
+        updateTimer(timeToSelectedDate);
       }, COUNT_DELAY);
-    }
+    });
   },
- 
 };
 
 flatpickr('#datetime-picker', options);
 
-// function updateTimer() {
-    
-
-//     // const formattedValueDays = addLeadingZero(days);
-//     // const formattedValueHours = addLeadingZero(hours);
-//     // const formattedValueMinutes = addLeadingZero(minutes);
-//     // const formattedValueSeconds = addLeadingZero(seconds);
-
-//     // valueDays.textContent.innerHTML.formattedValueDays;
-//     // valueHours.textContent.innerHTML.formattedValueHours;
-//     // valueMinutes.textContent.innerHTML.formattedValueMinutes;
-//     // valueSeconds.textContent.innerHTML.formattedValueSeconds;
-
-//   }
-
-
+function updateTimer({ days, hours, minutes, seconds }) {
+  valueDays.textContent = `${days}`;
+  valueHours.textContent = `${hours}`;
+  valueMinutes.textContent = `${minutes}`;
+  valueSeconds.textContent = `${seconds}`;
+}
 
 function addLeadingZero(value) {
   const formattedValue = value.toString().padStart(2, '0');
 
   return formattedValue;
 }
-
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
