@@ -9,17 +9,26 @@
 
 const formRef = document.querySelector('.form');
 
-formRef.addEventListener('submit', createPromise);
+formRef.addEventListener('submit', (event) => {
+  const {
+    elements: { delay, step, amount }
+  } = event.currentTarget;
+
+  createPromise()
+
+});
 
 function createPromise(position, delay) {
   return new Promis((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
+    
 
     setTimeout(() => {
       if (shouldResolve) {
-        resolve({position: `${position.value}`, delay: `${delay.value}`,})
-      } else {
-        reject 
+        resolve({position, delay});
+      } 
+      else {
+        reject("error");
       }
     }, delay);
   });
