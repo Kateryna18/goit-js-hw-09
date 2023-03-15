@@ -1,3 +1,6 @@
+// Користувач буде вводити першу затримку в мілісекундах, крок збільшення затримки для кожного промісу 
+// після першого і кількість промісів, яку необхідно створити.
+
 // Напиши скрипт, який на момент сабміту форми викликає функцію createPromise(position, delay)
 // стільки разів, скільки ввели в поле amount. Під час кожного виклику передай їй номер промісу
 // (position), що створюється, і затримку, враховуючи першу затримку (delay), введену користувачем, і крок (step).
@@ -14,9 +17,24 @@ formRef.addEventListener('submit', (event) => {
     elements: { delay, step, amount }
   } = event.currentTarget;
 
-  createPromise()
+  let position = 0;
+  
 
+  for(let i = 0; i <= amount; i += 1) {
+    position += i;
+    
+
+
+    createPromise(position, delay)
+  .then(({ position, delay }) => {
+    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
+  }
 });
+
 
 function createPromise(position, delay) {
   return new Promis((resolve, reject) => {
@@ -34,10 +52,4 @@ function createPromise(position, delay) {
   });
 }
 
-createPromise(2, 1500)
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
+
