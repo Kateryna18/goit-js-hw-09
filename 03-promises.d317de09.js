@@ -1,2 +1,0 @@
-function e(e,o){return new Promis(((n,t)=>{const i=Math.random()>.3;setTimeout((()=>{i&&n({position:`${e.value}`,delay:`${o.value}`})}),o)}))}document.querySelector(".form").addEventListener("submit",e),e(2,1500).then((({position:e,delay:o})=>{console.log(`✅ Fulfilled promise ${e} in ${o}ms`)})).catch((({position:e,delay:o})=>{console.log(`❌ Rejected promise ${e} in ${o}ms`)}));
-//# sourceMappingURL=03-promises.d317de09.js.map
