@@ -10,7 +10,7 @@
 // і delay зі значеннями однойменних параметрів. Використовуй початковий код функції для вибору того, що
 // потрібно зробити з промісом - виконати або відхилити.
 
-const formRef = document.querySelector('.form');
+const form = document.querySelector('.form');
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
@@ -26,11 +26,11 @@ function createPromise(position, delay) {
   });
 }
 
-formRef.addEventListener('submit', (event) => {
+form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const delay = Number(formRef.elements.delay.value);
-  const step = Number(formRef.elements.step.value);
-  const amount = Number(formRef.elements.amount.value);
+  const delay = Number(form.elements.delay.value);
+  const step = Number(form.elements.step.value);
+  const amount = Number(form.elements.amount.value);
 
   let position = 0;
   
@@ -38,7 +38,7 @@ formRef.addEventListener('submit', (event) => {
   for(let i = 1; i <= amount; i += 1) {
     position += i;
 
-    promiseDelay += delay + step;
+    const promiseDelay = delay + (i - 1) * step;
     
     createPromise(position, promiseDelay)
   .then(({ position, delay }) => {
